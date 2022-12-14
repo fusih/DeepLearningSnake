@@ -48,6 +48,7 @@ class QTrainer:
             reward = torch.unsqueeze(reward, 0)
             done = (done, )
 
+
         # 1: predicted q values with current state 
         pred = self.model(state)
 

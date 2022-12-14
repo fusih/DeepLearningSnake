@@ -16,6 +16,7 @@ class Direction(Enum):
     
 Point = namedtuple('Point', 'x, y')
 
+
 # rgb colors
 WHITE = (255, 255, 255)
 RED = (200,0,0)
