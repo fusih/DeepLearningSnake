@@ -25,7 +25,7 @@ LGREEN = (124,250,0)
 BLACK = (0,0,0)
 
 BLOCK_SIZE = 20
-SPEED = 15
+SPEED = 40
 
 class SnakeGameAI:
     
@@ -71,12 +71,12 @@ class SnakeGameAI:
         self.snake.insert(0, self.head)
         
         # 3. check if game over
-        reward=0
+        reward = 0
         game_over = False
         if self.is_collision() or self.frame_iteration > 100*len(self.snake):
             game_over = True
             reward = -10
-            return reward,game_over, self.score
+            return reward, game_over, self.score
             
         # 4. place new food or just move
         if self.head == self.food:
@@ -90,7 +90,7 @@ class SnakeGameAI:
         self._update_ui()
         self.clock.tick(SPEED)
         # 6. return game over and score
-        return reward,game_over, self.score
+        return reward, game_over, self.score
     
     def is_collision(self, pt=None):
         if pt is None:
@@ -124,19 +124,19 @@ class SnakeGameAI:
         pygame.display.flip()
         
     def _move(self, action):
-        # [stright,right, left]
+        # [stright, right, left]
 
         clock_wise = [Direction.RIGHT, Direction.DOWN, Direction.LEFT, Direction.UP]
         idx = clock_wise.index(self.direction)
 
-        if np.array_equal(action,[1,0,0]):
+        if np.array_equal(action,[1, 0, 0]):
             new_dir = clock_wise[idx]       # no change 
-        if np.array_equal(action, [0,1,0]):
-            next_idx = (idx + 1 )%4
-            new_dir = clock_wise[next_idx]       # right turn 
+        elif np.array_equal(action, [0, 1, 0]):
+            next_idx = (idx + 1) % 4
+            new_dir = clock_wise[next_idx] # right turn 
         else:  #[0,0,1]
-            next_idx = (idx-1)%4
-            new_dir = clock_wise[next_idx]
+            next_idx = (idx - 1) % 4
+            new_dir = clock_wise[next_idx] #left turn
         
         self.direction = new_dir
 
